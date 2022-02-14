@@ -1,0 +1,22 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cmake config
+      run: cmake -G "Unix Makefiles"
+    - name: make
+      run: make
+    - name: run googletest
+      run: ./test/alarm_node/nodeTests --gtest_repeat=10
+
